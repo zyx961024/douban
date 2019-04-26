@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{# 页面标题 #}
+{% block title %}
+    {{ movie.name}}
+
+{% endblock %}
+{# 页面内容 #}
+{% block content %}
+
+       <div class="container">
+    <div class="col-sm-2">
+         {% for movie in article_list %}
+              <div class="list-group side-bar" >
+            <a class="list-group-item" id="aa" href="{%  url 'movie_detail' movie.pk %}">{{ movie.name }}</a>
+        </div>
+           {% endfor %}
+    </div>
+    <div class="col-sm-7">
+        <div class="post-list">
+            <div class="post-list-item">
+                <div class="col-xs-5">
+                    <img class="post-object" src="{{ movie.pic }}" />
+                </div>
+                <div class="col-xs-7">
+                    <a href="#">
+                        <div class="post-heading">{{ movie.name }}</div>
+                    </a>
+
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur aut doloribus optio
+                        eligendi id expedita recusandae...</p> -->
+                    <p class="text-muted">
+                      <p>
+                           排名：{{ movie.id}}
+                        </p>
+                        <p>
+                            导演：{{ movie.director}}
+                        </p>
+                        <p>
+                       评分：{{ movie.star}}
+                        </p>
+                        <p>
+                       名言：“{{ movie.comment }}”
+                        </p>
+                     <p>
+                       剧情：20世纪40年代末，小有成就的青年银行家安迪（蒂姆·罗宾斯 Tim Robbins 饰）因涉嫌杀害妻子及她的情人而锒铛入狱。在这座名为肖申克的监狱内，希望似乎虚无缥缈，终身监禁的惩罚无疑注定了安迪接下来灰暗绝望的人生。未过多久，安迪尝试接近囚犯中颇有声望的瑞德（摩根·弗里曼 Morgan Freeman 饰），请求对方帮自己搞来小锤子。以此为契机，二人逐渐熟稔，安迪也仿佛在鱼龙混杂、罪恶横生、黑白混淆的牢狱中找到属于自己的求生之道。他利用自身的专业知识，帮助监狱管理层逃税、洗黑钱，同时凭..<a href="#">(展开全部)</a>
+                        </p>
+                    </p>
+                </div>
+            </div>
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+</div>
+
+{#    <a href="/movie/{{movie.pk}}">{{ movie.name}}</a>#}
+
+
+
+     {% if data %}
+    <ul id="pages" class="pagination pagination-sm pagination-xs" >
+        {% if data.first %}
+        <li><a href="?page=1">1</a></li>
+        {% endif %}
+        {% if data.left %}
+        {% if data.left_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% for i in data.left %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% endif %}
+        <li class="active"><a href="?page={{data.page}}">{{data.page}}</a></li>
+        {% if data.right %}
+        {% for i in data.right %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% if data.right_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% endif %}
+        {% if data.last %}
+        <li><a href="?page={{data.total_pages}}">{{data.total_pages}}</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

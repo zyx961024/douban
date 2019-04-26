@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    {{ movie.name}}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="col-sm-2">
+         {% for movie in article_list %}
+              <div class="list-group side-bar" >
+            <a class="list-group-item" id="aa" href="{%  url 'movie_detail' movie.pk %}">{{ movie.name }}</a>
+        </div>
+           {% endfor %}
+    </div>
+    <div class="col-sm-7">
+        {% for movie in article_list %}
+        <div class="post-list">
+            <div class="post-list-item">
+                <div class="col-xs-3">
+                    <img class="post-object" src={{ movie.pic }} />
+                </div>
+                <div class="col-xs-7">
+                    <a href="{%  url 'movie_detail' movie.pk %}">
+                        <div class="post-heading">{{ movie.name }}</div>
+                    </a>
+
+                    <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur aut doloribus optio
+                        eligendi id expedita recusandae...</p> -->
+                    <p class="text-muted">
+                      <p>
+                           排名：{{ movie.id }}
+                        </p>
+                        <p>
+                            导演：{{ movie.director }}
+                        </p>
+                        <p>
+                       评分：{{ movie.star }}
+                        </p>
+                        <p>
+                       名言：{{ movie.comment }}
+                        </p>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+    <div class="col-sm-3"></div>
+</div>
+</div>
+
+{#    <a href="/movie/{{movie.pk}}">{{ movie.name}}</a>#}
+
+
+
+     {% if data %}
+    <ul id="pages" class="pagination pagination-sm pagination-xs" >
+        {% if data.first %}
+        <li><a href="?page=1">1</a></li>
+        {% endif %}
+        {% if data.left %}
+        {% if data.left_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% for i in data.left %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% endif %}
+        <li class="active"><a href="?page={{data.page}}">{{data.page}}</a></li>
+        {% if data.right %}
+        {% for i in data.right %}
+        <li><a href="?page={{i}}">{{i}}</a></li>
+        {% endfor %}
+        {% if data.right_has_more %}
+        <li><span>...</span></li>
+        {% endif %}
+        {% endif %}
+        {% if data.last %}
+        <li><a href="?page={{data.total_pages}}">{{data.total_pages}}</a></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+
+{% endblock %}

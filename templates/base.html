@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet"href="{% static 'base.css' %}">
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
+<script type="text/javascript" src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="movie_list.html" class="navbar-brand" id="movie">豆瓣电影
+            </a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">剧情</a></li>
+            <li><a href="#">喜剧</a></li>
+            <li><a href="#">犯罪</a></li>
+            <li><a href="#">爱情</a></li>
+            <li><a href="#">动作</a></li>
+            <li><a href="#">战争</a></li>
+            <li><a href="#">灾难</a></li>
+            <li><a href="#">动画</a></li>
+        </ul>
+         <ul class="nav navbar-nav navbar-right">
+             {% if request.session.is_login %}
+            <li><a href="#">欢迎你,{{ request.session.user_name }}</a></li>
+                 <li><a href="{% url 'logout' %}">注销</a></li>
+             {% else %}
+            <li><a href="{% url 'login' %}">登录</a></li>
+            <li><a href="{% url 'login' %}">注册</a></li>
+             {% endif %}
+        </ul>
+        <ul >
+            <form class="navbar-form search-form" action="{% url 'search' %}">
+                <div class="form-group">
+                    <input type="text" name="wd" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </form>
+
+        </ul>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+</body>
+</html>

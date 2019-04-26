@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+   注册
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="form-container">
+    <h1>登录 <small>没有账号？<a href="register.html">注册</a></small></h1>
+    <form method="post" action="{% url 'loginCheck' %}">
+         {% csrf_token %}
+      <div class="form-group">
+        <label>用户名/手机/邮箱</label>
+        <input type="text" class="form-control" name="username">
+      </div>
+      <div class="form-group">
+        <label>密码</label>
+        <input type="password" class="form-control" name="password">
+      </div>
+      <p>忘记密码？</p>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block">登录</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
